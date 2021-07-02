@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>标签: JUC - Hexo</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Hexo"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Hexo"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta property="og:type" content="blog"><meta property="og:title" content="Hexo"><meta property="og:url" content="https://ahsq.github.io/"><meta property="og:site_name" content="Hexo"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://ahsq.github.io/img/og_image.png"><meta property="article:author" content="HSQ"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://ahsq.github.io"},"headline":"Hexo","image":["https://ahsq.github.io/img/og_image.png"],"author":{"@type":"Person","name":"HSQ"},"description":""}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><script data-ad-client="ca-pub-5936870219195046" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 5.4.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="Hexo" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/">关于</a></div><div class="navbar-end"><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/tags">标签</a></li><li class="is-active"><a href="#" aria-current="page">JUC</a></li></ul></nav></div></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-06-04T06:06:37.000Z" title="2021-6-4 2:06:37 ├F10: PM┤">2021-06-04</time>发表</span><span class="level-item"><time dateTime="2021-06-24T11:58:51.971Z" title="2021-6-24 7:58:51 ├F10: PM┤">2021-06-24</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/JUC/">JUC</a></span><span class="level-item">16 分钟读完 (大约2463个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/06/04/JUC-20210604/">JUC并发编程</a></h1><div class="content"><h2 id="1、什么是JUC"><a href="#1、什么是JUC" class="headerlink" title="1、什么是JUC"></a>1、什么是JUC</h2><p><strong>j</strong>ava.<strong>u</strong>til.<strong>c</strong>oncurrent 简称JUC  通常在并发编程中很有用</p>
+<h2 id="2、线程和进程"><a href="#2、线程和进程" class="headerlink" title="2、线程和进程"></a>2、线程和进程</h2><p>java默认有2个线程：main、GC；</p>
+<p>java无法直接开启线程；</p>
+<blockquote>
+<p>Thread线程有 几个状态</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NEW 新生</span><br><span class="line">RUNNABLE 运行</span><br><span class="line">BLOCKED 阻塞</span><br><span class="line">WAITING 无限期等待</span><br><span class="line">TIMED_WAITING 超时等待</span><br><span class="line">TERMINATED 终止</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>wait/sleep区别</p>
+</blockquote>
+<p>1、来自不同的类</p>
+<p>wait  =&gt; Object</p>
+<p>sleep =&gt; Thread</p>
+<p>2、关于锁的释放</p>
+<p>wait：需要主动去释放锁</p>
+<p>sleep：到时间就会继续执行</p>
+<p>3、使用的范围</p>
+<p>wait：只能在同步代码块中使用</p>
+<p>sleep： 可以再任何地方使用</p>
+<h2 id="3、Lock锁"><a href="#3、Lock锁" class="headerlink" title="3、Lock锁"></a>3、Lock锁</h2><blockquote>
+<p>Synchronized和lock区别</p>
+</blockquote>
+<p>1、Synchronized 内置的Java关键字 ，Lock 是一个Java类<br>2、Synchronized 无法判断获取锁的状态, Lock可以判断是否获取到了锁<br>3、Synchronized 会自动释放锁, lock必须要手动释放锁!如果不释放锁,死锁<br>4、Synchronized 线程1 (获得锁,阻塞)、线程2(等待,傻傻的等) ; Lock锁就不-定会等待下去;<br>5、Synchronized 可重入锁 ,可以中断的,非公平; Lock ,可重入锁,可以判断锁,非公平(可以自己设置) ;<br>6、Synchronized 适合锁少量的代码同步问题 , Lock适合锁大量的同步代码!</p>
+<h2 id="4、生产者与消费者问题"><a href="#4、生产者与消费者问题" class="headerlink" title="4、生产者与消费者问题"></a>4、生产者与消费者问题</h2><blockquote>
+<p>防止虚假唤醒</p>
+</blockquote>
+<p>if 替换为while</p>
+<blockquote>
+<p>lock锁优点</p>
+</blockquote>
+<p>可以使用condition指定唤醒线程</p>
+<h2 id="5、集合类线程不安全"><a href="#5、集合类线程不安全" class="headerlink" title="5、集合类线程不安全"></a>5、集合类线程不安全</h2><blockquote>
+<p>并发下ArrayList不安全？</p>
+</blockquote>
+<p>解决方案：</p>
+<p>1、List<String> list = new Vector&lt;&gt;(;<br>2、List<String> list = Collections. synchronizedL ist(new ArrayList&lt;&gt;();<br>3、List<String> list = new CopyonwriteArrayList&lt;&gt;();</p>
+<p>Vector：底层采用Synchronized实现；</p>
+<p>CopyonwriteArrayList：底层采用lock锁实现，写入时复制；</p>
+<blockquote>
+<p>set 不安全</p>
+</blockquote>
+<p> 解决方案：</p>
+<p>Set<String> set = Collections . synchronizedSet(new HashSet&lt;&gt;());<br>Set<string> set = new CopyOnwriteArraySet&lt;&gt;( );</p>
+<blockquote>
+<p>hashSet底层是什么</p>
+</blockquote>
+<p>底层是hashMap</p>
+<h2 id="6、常用辅助类"><a href="#6、常用辅助类" class="headerlink" title="6、常用辅助类"></a>6、常用辅助类</h2><p><strong>CountDownLatch</strong>减法计数器</p>
+<p>原理：</p>
+<p>CountDownLatch. countDown（）; // 数量-1<br>countDownLatch.await（）; // 等待计数器归零,然后再向下执行<br>每次有线程调用countDown()数量-1 ,假设计数器变为0 , countDownLatch.await()就会被唤醒,继续执行!</p>
+<p><strong>CyclicBarrier</strong>加法计数器</p>
+<p>原理：</p>
+<p>每次调用 await（） 计数器加一，计数器达到数量主线程就会被唤醒</p>
+<p><strong>Semaphore</strong>信号量</p>
+<p>原理：</p>
+<p>Semaphore. acquire()获得 ,假设如果已经满了, 等待,等待被释放为止!<br>semaphore. releaseO;释放,会将当前的信号量释放+ 1 ,然后唤醒等待的线程!</p>
+<h2 id="7、读写锁"><a href="#7、读写锁" class="headerlink" title="7、读写锁"></a>7、读写锁</h2><p>独占锁(写锁)   次只能被一个线程占有<br>共享锁(读锁)   多个线程可以同时 占有<br>读-读 可以共存!<br>读-写 不能共存!<br>写-写 不能共存!</p>
+<h2 id="8、线程池"><a href="#8、线程池" class="headerlink" title="8、线程池"></a>8、线程池</h2><p>线程池:三大方法、7大参数、4种拒绝策略</p>
+<blockquote>
+<p>池化技术</p>
+</blockquote>
+<p>程序的运行,本质:占用系统的资源!优化资源的使用! =&gt;池化技术<br>线程池、连接池、内存池、对象./…. 创建、销毁。十分浪费资源<br>池化技术:事先准备好一些资源，有人要用,就来我这里拿,用完之后还给我。<br>线程池的好处:<br>1、降低资源的消耗<br>2、提高响应的速度<br>3、方便管理。<br>线程复用、可以控制最大并发数、管理线程</p>
+<blockquote>
+<p>线程</p>
+</blockquote>
+<p>三大方法：</p>
+<p>Executors.newsingleThreadExecutor();//单个线程<br>Executors.newF ixedThreadPool(5); //创建一个固定的线程池的大小<br>Executors.newCachedThreadPool(); //可伸缩的，遇强则强，遇弱则弱</p>
+<blockquote>
+<p>七大参数</p>
+</blockquote>
+<p>int corepoolsize, //核心线程池大小<br>int maximumPoolsize, //最大核心线程池大小<br>long keepAliveTime， //超时了没有人调用就会释放<br>TimeUnit unit, //超时单位<br>Block ingQueue<Runnable> workQueue， //阻塞队列<br>ThreadF actory threadFactory, //线程工厂:创建线程的，一般不用动<br>RejectedE xecuti onHandler handle //拒绝策略</p>
+<blockquote>
+<p> 四种拒绝策略</p>
+</blockquote>
+<p>new ThreadPoolExecutor . AbortPolicy() // 银行满了，还有人进来，不处理这个人的，抛出异常<br>new ThreadPoolExecutor . CallerRunsPolicy() //哪来的去哪里!<br>new ThreadPoolExecutor. DiscardPolicy() //队列满了，丢掉任务，不会抛出异常!<br>new ThreadPoolExecutor. DiscardoldestPolicy() //队列满了 ，尝试去和最早的竞争，也不会抛出异常!</p>
+<blockquote>
+<p>IO密集型，cpu密集型</p>
+</blockquote>
+<p>最大线程到底该如何定义<br>1、CPU密集型,几核，就是几,可以保持CPu的效率最高!<br>2、I0密集型&gt;判断你程序中十分耗IO的线程<br>程序<br>15个大型任务io+分占用资源!</p>
+<h2 id="JMM"><a href="#JMM" class="headerlink" title="JMM"></a>JMM</h2><p>JMM :java内存模型，不存在的东西，概念！约定</p>
+<p>JMM关于同步的规定：<br>1、线程解锁前，必须把共享变量的值刷新回主内存<br>2、线程加锁前，必须读取主内存的最新值到自己的工作内存<br>3、加锁解锁是同一把锁</p>
+<p>主内存与工作内存之间的具体交互协议，即一个变量如何从主内存拷贝到工作内存、如何从工作内存同步到主内存之间的实现细节，Java内存模型定义了以下八种操作来完成：</p>
+<ul>
+<li><strong>lock（锁定）</strong>：作用于主内存的变量，把一个变量标识为一条线程独占状态。</li>
+<li><strong>unlock（解锁）</strong>：作用于主内存变量，把一个处于锁定状态的变量释放出来，释放后的变量才可以被其他线程锁定。</li>
+<li><strong>read（读取）</strong>：作用于主内存变量，把一个变量值从主内存传输到线程的工作内存中，以便随后的load动作使用</li>
+<li><strong>load（载入）</strong>：作用于工作内存的变量，它把read操作从主内存中得到的变量值放入工作内存的变量副本中。</li>
+<li><strong>use（使用）</strong>：作用于工作内存的变量，把工作内存中的一个变量值传递给执行引擎，每当虚拟机遇到一个需要使用变量的值的字节码指令时将会执行这个操作。</li>
+<li><strong>assign（赋值）</strong>：作用于工作内存的变量，它把一个从执行引擎接收到的值赋值给工作内存的变量，每当虚拟机遇到一个给变量赋值的字节码指令时执行这个操作。</li>
+<li><strong>store（存储）</strong>：作用于工作内存的变量，把工作内存中的一个变量的值传送到主内存中，以便随后的write的操作。</li>
+<li><strong>write（写入）</strong>：作用于主内存的变量，它把store操作从工作内存中一个变量的值传送到主内存的变量中。</li>
+</ul>
+<p>Java内存模型还规定了在执行上述八种基本操作时，必须满足如下规则：</p>
+<ul>
+<li>如果要把一个变量从主内存中复制到工作内存，就需要按顺寻地执行read和load操作， 如果把变量从工作内存中同步回主内存中，就要按顺序地执行store和write操作。但Java内存模型只要求上述操作必须按顺序执行，而没有保证必须是连续执行。</li>
+<li>不允许read和load、store和write操作之一单独出现</li>
+<li>不允许一个线程丢弃它的最近assign的操作，即变量在工作内存中改变了之后必须同步到主内存中。</li>
+<li>不允许一个线程无原因地（没有发生过任何assign操作）把数据从工作内存同步回主内存中。</li>
+<li>一个新的变量只能在主内存中诞生，不允许在工作内存中直接使用一个未被初始化（load或assign）的变量。即就是对一个变量实施use和store操作之前，必须先执行过了assign和load操作。</li>
+<li>一个变量在同一时刻只允许一条线程对其进行lock操作，但lock操作可以被同一条线程重复执行多次，多次执行lock后，只有执行相同次数的unlock操作，变量才会被解锁。lock和unlock必须成对出现</li>
+<li>如果对一个变量执行lock操作，将会清空工作内存中此变量的值，在执行引擎使用这个变量前需要重新执行load或assign操作初始化变量的值</li>
+<li>如果一个变量事先没有被lock操作锁定，则不允许对它执行unlock操作；也不允许去unlock一个被其他线程锁定的变量。</li>
+<li>对一个变量执行unlock操作之前，必须先把此变量同步到主内存中（执行store和write操作）。</li>
+</ul>
+<h2 id="Volatile"><a href="#Volatile" class="headerlink" title="Volatile"></a>Volatile</h2><p>Volatile是Java虚拟机提供轻量级的同步机制<br>1、保证可见性：一个子线程在自己工作内存中修改变量并写回主内存，主内存在通知其他线程更新变量<br>2、不保证原子性：前几步是线程不安全的；最后一步内存屏障保证JVM让最新的变量在所有线程可见<br>3、禁止指令重排: 保证指令执行顺序</p>
+<h2 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h2><p>CAS compareAndSwap:比较并交换!</p>
+<p> CAS是cpu的并发原语</p>
+<p>CAS :比较当前工作内存中的值和主内存中的值,如果这个值是期望的,那么则执行操作! 如果不是就一直循环!也就是自旋锁<br><strong>缺点:</strong><br>1、循环会耗时<br>2、 一次性只能保证一个共享变量的原子性<br>3、ABA问题</p>
+<p><strong>atomicinteger，为什么要用cas而不是synchronized？</strong></p>
+<p>synchronized： 加锁只允许一个线程去修改，并发下降</p>
+<p>cas：由于自旋锁，保证了一致性也保证了并发性</p>
+</div></article></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="HSQ"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">HSQ</p><p class="is-size-6 is-block">软件开发</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>北京市</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">8</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">5</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">7</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/AHSQ"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="邮箱" href="mailto:hsq0608@gmail.com"><i class="fa fa-envelope-open"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="QQ" href="http://wpa.qq.com/msgrd?v=3&amp;uin=905319761&amp;site=qq&amp;menu=yes"><i class="fab fa-qq"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://blog.csdn.net/qq_34158598" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">本人CSDN</span></span><span class="level-right"><span class="level-item tag">blog.csdn.net</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/IDEA%E6%A8%A1%E6%9D%BF/"><span class="level-start"><span class="level-item">IDEA模板</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/JUC/"><span class="level-start"><span class="level-item">JUC</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/JVM/"><span class="level-start"><span class="level-item">JVM</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Ubuntu/"><span class="level-start"><span class="level-item">Ubuntu</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/redis/"><span class="level-start"><span class="level-item">redis</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-07-02T08:46:37.000Z">2021-07-02</time></p><p class="title"><a href="/2021/07/02/idea-template/">IDEA模板</a></p><p class="categories"><a href="/categories/IDEA%E6%A8%A1%E6%9D%BF/">IDEA模板</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-06-17T06:23:37.000Z">2021-06-17</time></p><p class="title"><a href="/2021/06/17/jvm-20210617/">JVM参数调优</a></p><p class="categories"><a href="/categories/JVM/">JVM</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-06-04T06:06:37.000Z">2021-06-04</time></p><p class="title"><a href="/2021/06/04/JUC-20210604/">JUC并发编程</a></p><p class="categories"><a href="/categories/JUC/">JUC</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-04-21T11:06:37.000Z">2021-04-21</time></p><p class="title"><a href="/2021/04/21/20210421jvm/">JVM探究</a></p><p class="categories"><a href="/categories/JVM/">JVM</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-04-21T11:06:37.000Z">2021-04-21</time></p><p class="title"><a href="/2021/04/21/Ubuntu-nfs/">Ubuntu安装nfs（服务端）</a></p><p class="categories"><a href="/categories/Ubuntu/">Ubuntu</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/07/"><span class="level-start"><span class="level-item">七月 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">六月 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/04/"><span class="level-start"><span class="level-item">四月 2021</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/AOF/"><span class="tag">AOF</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/IDEA%E6%A8%A1%E6%9D%BF/"><span class="tag">IDEA模板</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JUC/"><span class="tag">JUC</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JVM/"><span class="tag">JVM</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/RDB/"><span class="tag">RDB</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nfs-Ubuntu/"><span class="tag">nfs Ubuntu</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/redis/"><span class="tag">redis</span><span class="tag">3</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget" data-type="adsense"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5936870219195046" data-ad-slot="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="Hexo" height="28"></a><p class="is-size-7"><span>&copy; 2021 HSQ</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
